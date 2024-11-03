@@ -4,7 +4,11 @@ const { Product } = require('../models/index.cjs');
 const getProducts = async (req, res) => {
   try {
     const products = await Product.findAll();
-    res.json(products);
+    res.json({
+      status: true,
+      message: 'Success Get Data!',
+      data: products
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -15,7 +19,11 @@ const createProduct = async (req, res) => {
   try {
     const { name, category, price, specs } = req.body;
     const newProduct = await Product.create({ name, category, price, specs });
-    res.status(201).json(newProduct);
+    res.status(201).json({
+      status: true,
+      message: 'Success Add Data!',
+      data: newProduct
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -38,7 +46,11 @@ const updateProduct = async (req, res) => {
     product.specs = specs;
 
     await product.save();
-    res.json(product);
+    res.json({
+      status: true,
+      message: 'Success Update Data!',
+      data: product
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
